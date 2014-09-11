@@ -2,11 +2,12 @@
 <widget id="com.securiteroutiere.APPSR" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>APPSR</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+       APPSR, la nouvelle application smartphone / Tablette dédiée à la sécurité routière, réalisée et développée en partenariat entre la préfecture des Côtes d’Armor et le Département Réseaux & Télécommunications de l'IUT de Lannion.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="contact@cotes-darmor.gouv.fr" href="http://www.cotes-darmor.pref.gouv.fr/">
+        Préfet des Côtes d'Armor (22) 
     </author>
     <content src="index.html" />
+	<icon src="icon.png" />
     <access origin="*" />
 </widget>
