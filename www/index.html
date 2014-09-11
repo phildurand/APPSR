@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<!--Dernière modification par Cécilia Le Calvez le 1/08/2014-->
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+        
+        <!--JQuery-->
+        <!--<script type="text/javascript" src="js/jquery-2.1.0.js"></script>-->
+        <script type="text/javascript" src="js/lib/jquery-1.11.1.min.js"></script>
+        
+        <!--JQuery Mobile-->
+        <script src="js/lib/jquery.mobile-1.4.0.min.js"></script>
+        
+		
+		
+        <!--Highchart
+        <script type="text/javascript" src="js/Highcharts-3.0.9/js/highcharts.js"></script>
+        <script type="text/javascript" src="js/Highcharts-3.0.9/js/highcharts-more.js"></script>
+        <script type="text/javascript" src="js/Highcharts-3.0.9/js/modules/exporting.js"></script>
+        -->
+
+        <!--Feuilles de style-->
+        <!--Inclusion + surcharge de 700 lignes de css !!-->
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.0.css"/>
+        <!--<link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.0.css">-->
+        <link rel="stylesheet" type="text/css" href="css/jQuery_custom.css"/>
+        <!--<link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css"/>-->
+        <link rel="stylesheet" type="text/css" href="css/index.css"/>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/alcool.js"></script>
+        <script type="text/javascript" src="js/comparateur_vitesse.js"></script>
+        <script type="text/javascript" src="js/freinage.js"></script>
+        <script type="text/javascript" src="js/premiers_secours.js"></script>
+        <script type="text/javascript" src="js/securite_routiere.js"></script>
+		<script type="text/javascript" >//charset="utf-8"
+
+			// Wait for device API libraries to load
+			//
+			document.addEventListener("deviceready", onDeviceReady, false);
+
+			// device APIs are available
+			//
+			function onDeviceReady() {
+				//alert('chargement...');
+				//navigator.splashscreen.hide();
+			}
+			
+			//Initialisation du local Storage
+			//init_storage();
+			
+			function onDeviceReady() {
+				// Register the event listener
+				document.addEventListener("backbutton", btn_retour, false);
+			}
+
+		</script>
+        
+        <title>Securité Routière</title>
+        
+        <style>
+			@media screen and (min-width:499px){
+			   .page_man {
+					background:url(img/backgroud_1_fonce_tab.png) no-repeat top fixed;
+					-webkit-background-size: cover; 
+					-moz-background-size: cover; 
+					-ms-background-size: cover; 
+					-o-background-size: cover;
+					background-size: cover;
+					background-attachment: fixed;
+				}
+				.page_nue {
+					background:url(img/backgroud_2.png) no-repeat center fixed;
+					-webkit-background-size: cover; 
+					-moz-background-size: cover; 
+					-ms-background-size: cover; 
+					-o-background-size: cover; 
+					background-size: cover;
+					background-attachment: fixed;
+				}
+				.page_pan{
+					background:url(img/backgroud_3_fonce_tab.gif) no-repeat center fixed;
+					-webkit-background-size: cover; 
+					-moz-background-size: cover; 
+					-ms-background-size: cover; 
+					-o-background-size: cover; 
+					background-size: cover;
+					background-attachment: fixed;
+				}
+				#par_a_propos{
+					margin-top: 0px;
+				}
+			}
+			
+			@media screen and (max-width:500px){
+				.page_man {
+					background:url(img/backgroud_1_fonce.gif) no-repeat top fixed;
+				}
+				.page_pan{
+					background:url(img/backgroud_3_fonce.gif) no-repeat center fixed;
+				}
+			
+			}
+            .appel {
+                width:46.5%;
+                height:46.5%;
+                margin:1%;
+            }
+			.visible {
+				display:block; 
+				visibility: visible;
+			}
+			.invisible {
+				display:none;
+				visibility: hidden;
+			}
+			#par_a_propos{
+					margin-top: -10%;
+				}
+        </style>
+        
+    </head>
+    
+    <!--
+<script src="http://debug-software.intel.com/target/target-script-min.js#3jmx2tmLaYyF1jyEDFWVRvW8D8jAsI8xy0fJTRCC1ME"></script>
+-->
+    <body onload="onDeviceReady()" class="page_man">
+        
+        <div data-role="page" id="menu" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+            </div>
+            <!-- /header -->
+
+            <!-- content -->
+            <div class="content" data-role="content" >
+                <ul style="font-size:12px; margin:4%;" data-role="listview" class="no-radius" data-inset="true">
+                    <li style="color:#FFEC00;" data-role="list-divider" class="list-divider">Simulateurs</li>
+                    <li class="soustitre-menu simulateur" data-simu="taux_dalcoolemie"><a  data-transition="none">
+                            <img class="icon-menu" width="10" height="10" src="img/icons/beer.png" alt="Taux d'alcoolémie">
+                            <h2>Taux d'alcoolémie</h2>
+                        </a>
+                    </li>
+                    <li class="soustitre-menu simulateur" data-simu="distance_de_freinage"><a  data-transition="none" >
+                            <img class="icon-menu" src="img/icons/speedometer.png" alt="Distance de freinage">
+                            <h2>Distance de freinage</h2>
+                        </a>
+                    </li>
+                    <li class="soustitre-menu simulateur" data-simu="comparateur_vitesse"><a  data-transition="none" >
+                            <img class="icon-menu" src="img/icons/gas_station.png" alt="Comparateur de vitesse">
+                            <h2>Comparateur de vitesse</h2>
+                        </a>
+                    </li>
+                    <li data-role="list-divider" class="list-divider">Sécurité</li>
+                    <li class="soustitre-menu"><a href="#page_secu_routiere" data-transition="none" >
+                            <img class="icon-menu" src="img/icons/dnd.png" alt="Sécurité routière">
+                            <h2>Sécurité routière</h2>
+                        </a>
+                    </li>
+                    <li class="soustitre-menu"><a href="#page_premier_secours" submit="$("#popupDialogErreurAlcool").popup('open');" data-transition="none" >
+                            <img class="icon-menu" src="img/icons/survival_bag.png" alt="Premiers secours">
+                            <h2>Premiers secours</h2>
+                        </a>
+                    </li>
+                    <li class="soustitre-menu"><a href="#page_numero_urgence" data-transition="none" >
+                            <img class="icon-menu" src="img/icons/phone2.png" alt="Numéros d'urgence">
+                            <h2>Numéros d'urgence</h2>
+                        </a>
+                    </li>
+                    <li data-role="list-divider" class="list-divider">À Savoir</li><!--onClick="affiche_carte()"-->
+					<li class="soustitre-menu"><a id="liencarteid" class="checkCo" data-lien='carte' href="#carte" data-transition="none" >
+                            <img class="icon-menu" src="img/icons/logo_carte.png" alt="Carte des actions">
+                            <h2>Carte des actions</h2>
+						</a>
+                    </li>
+                    <li class="soustitre-menu"><a href="#page_links" data-transition="none" >
+                            <img class="icon-menu" src="img/icons/link.png" alt="Liens utiles">
+                            <h2>Liens utiles</h2>
+                        </a>
+                    </li>
+                    <li class="soustitre-menu"><a href="#page_about" data-transition="flip" >
+                            <img class="icon-menu" src="img/icons/about.png" alt="A propos de l'application">
+                            <h2>A propos de l'application</h2>
+                        </a>
+                    </li>
+                </ul><!--Fin de la liste non-ordonnée-->
+				<!--Affichage du logo de la sécurité routière en fin de liste-->
+				<div style="list-style:none;">
+						<p style="text-align:center;margin-top:10%;"><img src="img/Logo.jpg" alt="logo"></p>
+				</div>
+
+                <!--Message avertissement-->
+                <div data-role="popup" id="popupMsgAvert" data-theme="b" data-dismissible="false" style="text-align:center;max-width:400px;margin:0px;">
+                    <div data-role="header" data-theme="a">
+                        <h2 style="margin:0px" id="titre_avert"></h2>
+                    </div>
+                    <div role="main" class="ui-content" style="margin:0px;">
+                        <h4 style="color:#000000;" class="ui-title" id="msg_avert"></h4>
+                        <div style="text-align:center;"><a id="continue_avert" href="#" data-role="button" data-inline="true">Continuer</a></div>
+                    </div>
+                </div>
+
+            </div><!-- /content -->
+
+        </div><!-- /page Menu-->
+        
+        
+        <!-- page Taux d'alcoolemie-->
+        <div data-role="page" id="page_taux_dalcoolemie" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse" data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+
+                <!--
+                <a href="#" id="settings" style="padding:0; background-color:transparent;border-color:transparent;"><img src="img/icons/config.png" width=34 height=34></a>
+                -->
+            </div>
+            <!-- /header -->
+
+            <!-- content -->		   
+            <div data-role="content" style="text-align:center;margin:5%;margin-top:0%;">
+
+               <h3 style="text-align:center;color:white;font-weight:none;">Simulateur de taux d'alcoolémie</h3>
+
+			   <p style="color:white;">Vous êtes :</p>
+                          
+                <!--Boutons Homme/Femme-->
+                <form name="formHF">
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <input id="femmebtn" class="genre" type="radio" name="btnRadio" value="0.6" checked="checked"> 
+                        <label for="femmebtn">
+                            <img src="img/WomenLogo.png" width=50 height=50 alt="logo femme">
+                        </label>
+
+                        <input id="hommebtn" class="genre" type="radio" name="btnRadio" value="0.7"> 
+                        <label for="hommebtn">
+                            <img src="img/manLogo.png" width=50 height=50 alt="logo homme">
+                        </label>
+                    </fieldset>
+                </form>
+				<p style="color:white;">Votre poids :</p>
+				<input id="poids" type="range" name="slider-step" value="50" min="40" max="200"  data-highlight="true"/><!--Input slider allant  de 0 à 200 kg, valeur par défaut 50-->
+                <a id="choisir_verres" data-role="button" href="#page_alcools"> Choisir ses verres </a><!--Stockage du poids en local et passe à la page suivante-->
+            </div><!-- /content -->
+        </div><!-- /page  Taux d'alcoolemie-->
+        
+
+        <!--Page liste d'alcools-->
+        <div data-role="page" id="page_alcools" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <div class="content" data-role="content">
+				
+                <div id="listViewAlcool" style="margin:5%;margin-top:0%;margin-bottom:2%;">
+                    <ul id="listeAlcools" data-role="listview" data-filter="false" data-inset="true">
+                        <!--Liste non ordonnées qui contient par la suite la liste des alcools de la base-->
+                    </ul>
+                </div>
+<!--
+                <script type="text/javascript">
+                    testInitialisation();//Affiche les boissons dans la div d'au-dessus
+                </script>      
+-->
+                <div style="text-align:center;">
+                    <a id="nouvelleBoisson" href="#popUpNewBoisson" data-rel="popup" data-inline="true" data-role="button">Nouvelle boisson</a>
+                    <a id="calculerAlcool" data-rel="popup" data-inline="true" data-role="button">Calculer</a>
+                </div>
+				
+				
+                <!--Boite de dialogue ajout de boisson-->
+                <div data-role="popup" id="popUpNewBoisson" class="ui-content" style="margin:0px;" data-position-to="window">
+					<h3 style="text-align:center">Nouvelle boisson</h3>
+				
+                    <h4>Nom</h4>
+                    <input id="nvxBoisson" type="text">
+                    <h4>Degré (%)</h4>
+                    <input id="nvxDegre" type="number">
+                    <h4>Contenance (mL)</h4>
+                    <input id="nvxContenance" type="number">
+					<p style="margin-top:25px;">
+						<a class="closepopup" style="margin:0px" data-role="button" data-inline="true">Annuler</a>
+						<a id="ajouterBoisson" style="margin:0px" data-role="button" data-inline="true">Ajouter</a>
+					</p>
+                </div>              
+                
+                <!--Boite de dialogue choix du nombre de verre en fonction de la boisson sélectionnée-->
+                <div data-role="popup" id="popupNbVerres" data-theme="a" style="text-align:center;margin:0px;" class="ui-corner-all" >
+                    <form>
+                        <h3 style="overflow:hidden; text-overflow:ellipsis" id="boissonAjtVerres"></h3>
+                        <p id="degreAjtVerre"></p>
+                        <p id="volumeAjtVerre"></p>
+                        <img id="ajoutVerres" class="nbVerres" src="img/up.png" style="width:12%" alt="plus">
+                        <p id="nombreVerres">1</p>
+                        <img id="enleverVerres" class="nbVerres" src="img/down.png" style="width:12%" alt="less">
+                    </form>
+                    <a class="closepopup" data-role="button" data-inline="true">Annuler</a>
+                    <a id="ajoutVerresBus" data-role="button" data-inline="true">Ajouter</a>
+
+                </div>
+
+                <!--Boite de dialogue Resultat-->
+                <div data-role="popup" id="popupgraphe" data-theme="a" data-dismissible="false" style="text-align:center;margin:0px;">
+                    <div data-role="header" data-theme="a">
+                        <h2>Résultats</h2>
+                    </div>
+                    <div role="main" class="ui-content" style="margin:0px;">
+                        <p id="reponse"></p>
+
+                        <div id="graphAlcool" style="color:#000000;min-width: 90%; height: 70%; margin: 0 auto"></div>
+                        <div id="graphAlcool2" style="color:#000000;min-width: 90%; height: 70%; margin: 0 auto"></div>
+                        <div style="text-align:center;"><a class="closepopup" style="text-align:center;" data-role="button" data-inline="true">Ok</a></div>
+                    </div>
+                </div>
+
+                <!--Boite de dialogue si erreur-->
+                <div data-role="popup" id="popupDialogErreurAlcool" data-theme="b" data-dismissible="false" style="text-align:center;max-width:400px;margin:0px;">
+                    <div data-role="header" data-theme="a">
+                        <h2>Attention</h2>
+                    </div>
+                    <div role="main" class="ui-content" style="margin:0px;">
+                        <h4 style="color:#000000;" class="ui-title" id="erreurPopUpAlcool"></h4>
+                        <div style="text-align:center;"><a class="closepopup" href="#" data-role="button" data-inline="true">Ok</a></div>
+                    </div>
+                </div>
+
+                <!--Boite de dialogue si erreur lors de l'ajout d'une boisson-->
+                <div data-role="popup" id="popupDialogErreurAjtAlcool" data-theme="b" data-dismissible="false" style="text-align:center;max-width:400px;margin:0px;" >
+                    <div data-role="header" data-theme="a">
+                        <h2>Attention</h2>
+                    </div>
+                    <div role="main" class="ui-content" style="margin:0px">
+                        <h4 style="color:#000000;margin:0px" class="ui-title" id="erreurPopUpAjtAlcool"></h4>
+                        <div style="text-align:center;"><a id="okErreurAjout" class="closepopup" href="#" data-role="button" data-inline="true">Ok</a></div>
+                    </div>
+                </div>
+
+                <!--Boite de dialogue si erreur lors de la suppression d'une boisson-->
+                <div data-role="popup" id="popupDialogErreurSuppAlcool" data-theme="b" data-dismissible="false" style="text-align:center;max-width:400px;margin:0px;" >
+                    <div data-role="header" data-theme="a">
+                        <h2>Attention</h2>
+                    </div>
+                    <div role="main" class="ui-content" style="margin:0px">
+                        <h4 style="color:#000000;margin:0px;overflow:hidden;text-overflow:ellipsis" class="ui-title" id="erreurPopUpSuppAlcool"></h4>
+                    </div>
+                    <a class="closepopup" data-role="button" data-inline="true">Annuler</a>
+                    <a id="suppression_id" class="closepopup" data-role="button" data-inline="true">Supprimer</a>
+                </div>
+            </div><!-- /content -->
+            
+        </div><!-- /page  Liste d'alcools-->
+
+        
+        <!-- page distance de freinage-->
+        <div data-role="page" id="page_distance_de_freinage" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <!-- /header -->
+            
+            <!-- content -->
+            <div data-role="content" style="text-align:center;margin:5%;margin-top:0%;">
+                <h3 style="text-align:center;color:white;">Simulateur de distance de réaction / freinage / arrêt</h3>
+                
+                <p style="color:white;"> Vitesse en km/h :</p>
+					<input type="range" name="slider-step" id="vitesseSimuArret" value="30" min="0" max="150" step="5" data-highlight="true"/><!--Input slider allant de 0 à 150 km/h par pas de 5-->
+
+                <p style="color:white;">Vous êtes :</p>
+                <!--Liste déroulante selon l'état du chauffeur-->
+                <div style="margin-top:-20px;" class="ui-field-contain">
+                    <select name="select-custom-1" id="etatSimuDA" data-native-menu="false">
+                        <option value="N">Attentif</option>
+                        <option value="F">Fatigué</option>
+                        <option value="A">Alcoolisé</option>
+                    </select>
+                </div>
+
+                <p style="color:white;">Etat de la chaussée :
+					<!--Boutons Etat de la chaussée-->
+					<form style="margin-top:-10px;" name="formWeather">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<input type="radio" name="btnRadio" value="S" id="radio-choice-h-2a" checked="checked"> 
+							<label for="radio-choice-h-2a">
+								<img src="img/CloudSun.png" width=50 height=50 alt="chausse seche"></label>
+							<input type="radio" name="btnRadio" value="M" id="radio-choice-h-2b"> 
+							<label for="radio-choice-h-2b">
+								<img src="img/rain.png" width=50 height=50 alt="chausse glissante">
+							</label>
+						</fieldset>
+					</form> 
+				</p>
+                
+                <button onClick="simuDistanceArret();">Calculer</button><!--Lance la fonction apres min 1 seconde-->
+                
+                <!--Affichage du résultat-->
+                <div data-role="popup" data-rel="dialog" id="DistancesPopUp" data-theme="b" style="width:100%;text-align:center;">
+                        <div data-role="header" data-theme="a">
+                            <h2>Résultats</h2>
+                        </div>
+                        <div class="ui-content" style="margin:0px;margin-left:20px;margin-right:20px;">
+                            <!--Distance de réaction-->
+                            <p id="distReaction"></p>
+                            <!--Distance de freinage-->
+                            <p id="distFreinage"></p>
+                            <!--Distance d'arret-->
+                            <p id="distArret"></p>
+                            <div id="graphSimuArret" style="min-width: 80%; height: auto; margin: 0 auto"></div>
+                        </div>
+						<div style="text-align:center;">
+                        <a class="closepopup" data-role="button" data-inline="true">Ok</a>
+						</div>
+                </div> 
+
+                <!--Pop up d'erreur si la distance est incorrecte-->
+                <div data-role="popup" id="popupDialogErreurFrein" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="text-align:center;max-width:400px;" >
+                    <div data-role="header" data-theme="a">
+                        <h2>Attention</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <h4 class="ui-title" id="erreurPopUpFrein"></h4>
+                        <div style="text-align:center;"><a class="closepopup" href="#" data-role="button" data-inline="true">Ok</a></div>
+                    </div>
+                </div>
+            </div><!-- /content -->
+        </div><!-- /page distance de freinage-->
+        
+        
+        
+        
+        <!-- page Comparateur de vitesse-->
+        <div data-role="page" id="page_comparateur_vitesse" class="page_man ui-page-header-fixed ui-page-theme-a">
+           <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <!-- /header -->
+            
+            <!-- content -->
+            <div class="content" data-role="content" style="text-align:center;margin:5%;margin-top:0%;">
+				<div style="text-align:center;margin:5%;margin-top:0%;">
+					<h3 style="text-align:center;" class="avertissementComparateur avertissement">Simulateur de vitesse et gain de temps</h3>
+					
+
+					<div class="contenuComparateur">
+						<p style="color:white;">Distance de parcours (km) :</p>
+						<input type="range" name="slider-step" id="distanceSimuGtps" value="100" min="0" max="1000" step="5" data-highlight="true"/>
+						
+						<p style="color:white;">Vitesse actuelle (km/h):</p>
+						<input type="range" name="slider-step" id="vitesseActuelleSimuGtps" value="50" min="0" max="150" step="5" data-highlight="true"/>
+
+						<p style="color:white;">Vitesse autorisée (km/h):</p>
+						<input type="range" name="slider-step" id="vitesseAutoriseeSimuGtps" value="50" min="30" max="130" step="5" data-highlight="true"/>
+						
+						<!--Boutons voiture-->
+						<p style="color:white;">Catégorie du véhicule :</p>
+						<form name="formConso">
+							<fieldset data-role="controlgroup" data-type="horizontal">
+								<input type="radio" name="btnRadio" value="citadine" id="citadine_id" checked="checked"> 
+								<label for="citadine_id" style="height:19px;">
+									<img src="img/voiture/citadine.png" alt="citadine">
+								</label>
+
+								<input type="radio" name="btnRadio" value="monospace" id="monospace_id">
+								<label for="monospace_id" style="height:19px;">
+									<img src="img/voiture/monospace.png" alt="monospace">
+								</label>
+								<input type="radio" name="btnRadio" value="berline" id="berline_id"> 
+								<label for="berline_id" style="height:19px;">
+									<img src="img/voiture/berline.png" alt="berline">
+								</label>
+							</fieldset>
+						</form>
+
+						<!--Calcul la distance de freinage-->
+						<button onClick="simuDistanceGtps();">Calculer</button>
+					</div>
+					<!--Pop Up résultat-->
+					<div data-role="popup" id="GainTpsPopUp"  data-theme="b" style="width:100%;text-align:center;margin:0px;" data-dismissible="false">
+						<div data-role="header" data-theme="a">
+							<h2>Résultats</h2>
+						</div>
+						<div role="main" class="ui-content" style="margin:0px;padding:0px">
+							<p id="gainTps"></p>
+							<p><b>Contravention : </b><span id="amendeEuros"></span>€</p>
+							<p><b>Permis : </b><span id="amendePoints"></span></p>
+							<p id="consommation_p" style="display:none;"><b>Consommation :</b><span id="consoCarburant"></span></p>
+							<p id="gain_perte_cout_trajet"></p>
+						</div>
+						<div style="text-align:center;"><a class="closepopup" data-role="button" data-inline="true">Ok</a></div><!--Ferme la pop up-->
+					</div> 
+
+					<!--Pop up d'erreur-->
+					<div data-role="popup" id="popupDialogErreurComp" data-theme="b" data-dismissible="false" style="text-align:center;max-width:400px;" >
+						<div data-role="header" data-theme="a">
+							<h2>Attention</h2>
+						</div>
+						<div role="main" class="ui-content">
+							<h4 class="ui-title" id="erreurPopUpComp"></h4>
+							<div style="text-align:center;"><a class="closepopup" href="#" data-role="button" data-inline="true">Ok</a></div><!--Ferme la pop up-->
+						</div>
+					</div>
+				</div>
+            </div><!-- /content -->
+        </div><!-- /page Comparateur de vitesses //Comparateur de vitesse-->
+        
+        
+
+
+        <div data-role="page" id="page_config" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <!-- /header -->
+
+
+            <div class="content" data-role="content" style="text-align:center;margin:5%;margin-top:0%;">
+                <ul data-role="listview" style="margin-top:2%">
+                    <li id="resetAlcool"><a href="#">Remise à zéro de la liste d'alcool</a></li>
+                    <li>Deux</li>
+                    <li>Trois</li>
+                </ul>
+            </div>
+        </div>
+
+
+         
+        <!-- page sécurité routière-->
+        <div data-role="page" id="page_secu_routiere" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a onclick="btn_retour()" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+                <!--<a href="javascript:history.go(history.length())" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>-->
+            </div>
+            <!-- /header -->
+			
+			<!-- content -->
+            <div class="content" data-role="content">
+				<a href="#btn_cas_accident" onclick="affiche_reponse_securite_routiere('reponse_cas_accident')" class="ui-btn" id="btn_cas_accident" data-transition="pop">UN ACCIDENT ?</a>
+				<div class="invisible" id="reponse_cas_accident">
+					<p style="color:white;text-align:center;margin:5%;margin-top:0%;"><p style="color:#FFD700;text-align:center;font-family:sans-serif;">Protéger - Alerter - Secourir</p>
+						<div style="color:white;text-align:justify;list-style:none;margin:5%;margin-top:0%;">
+							Sur voie rapide, ne quitter son véhicule qu'en cas d'urgence, ne pas rester sur la chaussée et passer au plus vite derrière les glissières de sécurité.<br/>
+							<br/>
+							<strong style="color:#FFD700;font-weight:none;">Protéger</strong> l'accident par l'usage des feux de détresse et de tout autre moyen de signalisation pour éviter le suraccident (triangle).<br/>
+							<br/>
+							Chaque passager doit se vêtir de son gilet fluorescent.<br/>
+							<br/>
+							<p style="text-align:center;"><img style="text-align:center;box-shadow: 6px 6px 6px black;" src="img/karl.jpg" alt="gilet fluorescent"><br/></p>
+							<br/>
+							<strong style="color:#FFD700;font-weight:none;">Alerter</strong> les services de secours par les bornes d'appel d'urgence en priorité ou avec un téléphone portable, en décrivant l'emplacement exact, le point kilomètrique, le numéro de la route et la direction.<br/>
+							<br/>
+							<strong style="color:#FFD700;font-weight:none;">Secourir</strong> les blessés les plus graves, sans toutefois les déplacer, ne pas enlever le casque des motards.<br/>
+							<br/>
+						</div>
+					</p>
+				</div>
+				
+				<a href="#btn_jamais_faire" name="btn_jamais_faire" onclick="affiche_reponse_securite_routiere('reponse_jamais_faire')" class="ui-btn" id="btn_jamais_faire" data-transition="pop">NE PAS FAIRE !</a>
+				<div class="invisible" id="reponse_jamais_faire">
+					<p style="color:white;text-align:center;margin:5%;margin-top:0%;">
+						<div style="color:white;text-align:justify;list-style:none;margin:5%;margin-top:0%;">
+							S’arrêter en pleine voie, en dehors de la bande d’arrêt d’urgence<br/>
+							<br/>
+							Changer une roue ou essayer de réparer soi-même son véhicule en panne, même sur la bande d’arrêt d’urgence<br/>
+							<p style="text-align:center;">
+								<img style="text-align:center;box-shadow: 6px 6px 6px black;" src="img/choc.jpg" alt="consequences">
+							</p>
+							<br/>
+							Pousser son deux-roues sur la voie<br/>
+							<br/>
+							S’arrêter sur bande d’arrêt d’urgence pour téléphoner, faire une pause, manger un sandwich<br/>
+
+							<br/>
+						</div>
+					</p>
+				</div>
+				
+				<a href="#btn_jamais_faire" onclick="affiche_reponse_securite_routiere('reponse_agent_intervention')" class="ui-btn" id="agent_intervention" data-transition="pop">ATTENTIONS AUX AGENTS !</a>
+				<div class="invisible" id="reponse_agent_intervention">
+					<p style="color:white;text-align:center;margin:5%;margin-top:0%;">
+						<div style="color:white;text-align:justify;list-style:none;margin:5%;margin-top:0%;">
+							Pour votre service, des agents interviennent sur les voies rapides urbaines: pompiers, police, patrouilleurs autoroutiers, équipes d'entretien ou d'intervention, équipes de salage...
+							<p style="text-align:center;">
+								<img style="text-align:center;box-shadow: 6px 6px 6px black;" src="img/accident.jpg" alt="agent">
+							</p>
+							<br/>
+							Ces agents font un métier dangereux. Des accidents sont malheureusement à déplorer régulièrement.
+							<br/>
+							Soyez prudent à l'approche de balisages. Respectez les personnels et appliquez leurs consignes.<br/>	
+							<br/>
+							
+						</div>
+					</p>
+				</div>
+			</div>
+			<!-- /content -->
+        </div><!-- /page sécurité routière-->
+            
+        <!-- page premier secours-->
+        <div data-role="page" id="page_premier_secours" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header" data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a onclick="btn_retour()" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <!-- /header -->
+            
+            
+            <!-- content -->
+            <div class="content" data-role="content">
+                <a href="" onclick="affiche_reponse_premier_secours('reponse_donner_alerte')" class="ui-btn" id="boutonDonnerAlerte" data-transition="pop">Donner l'alerte</a>
+				<div class="invisible" id="reponse_donner_alerte">
+					<p style="color:white;text-align:justify;margin:5%;margin-top:0%;" >Rester calme permet de gagner du temps.
+						Donner une alerte précise permet de déclencher rapidement des secours adaptés. Les moyens qui seront mis à disposition dépendent de ce que vous direz :<br/>
+						<div style="color:white;text-align:justify;list-style:none;margin:5%;margin-top:0%;">
+							Nature de l’appel (accident, incendie, malaise, …)<br/><br/>
+							Lieu précis (route, sens de circulation, commune, adresse, …)<br/><br/>
+							Les risques majeurs (sur-accident, explosion, …)<br/><br/>
+							Le nombre et l’état apparent des victimes<br/><br/>
+							Votre numéro de téléphone pour vous rappeler en cas de besoin<br/><br/>
+							Attendre les instructions et ne jamais raccrocher le premier<br/><br/>
+						</div>
+					</p>
+				</div>
+				
+                <a href="#secour" onclick="affiche_reponse_premier_secours('reponse_etouffement')" class="ui-btn" id="boutonEtouffement" data-transition="pop">L'étouffement</a>
+				<div class="invisible" id="reponse_etouffement">
+					<p style="color:white;text-align:justify;margin:5%;margin-top:0%;"> L’étouffement : qu’il s’agisse d’un enfant ou d’un adulte, il faut agir au plus vite.
+					<div style="color:white;text-align:justify;list-style:none;margin:5%;margin-top:0%;">
+						Donnez un maximum de 5 claques dans le dos de la victime (entre les omoplates), afin de provoquer une toux et de déloger l’objet bloquant la respiration.<br/><br/>
+						Si cette action ne suffit pas, effectuez un maximum de 5 compressions abdominales. Placez-vous derrière la victime et posez un de vos poings fermé entre le nombril et l’extrémité inférieure du sternum. Effectuez les  compressions vers vous et le haut.<br/><br/>
+						Le problème persiste. Alternez 5 claques dans le dos et 5 pressions abdominales.<br/><br/>
+						La victime perd connaissance, posez-la délicatement au sol et alertez rapidement les secours. Entreprenez par la suite une réanimation cardio-pulmonaire en effectuant 30 compressions thoraciques.<br/><br/>
+						Poursuivez la réanimation jusqu’à l’arrivée des secours ou jusqu’au retour d’une respiration normale.<br/><br/>
+						<p style="text-align:center;">
+							<img style="text-align:center;box-shadow: 6px 6px 6px black;" src="img/etouffement.gif" alt="etouffement">
+						</p>
+					</div>
+					</p>
+				</div>
+				
+                <a href="#secour" onclick="affiche_reponse_premier_secours('reponse_inconscience')" class="ui-btn" id="boutonInconscience" data-transition="pop">L'inconscience</a>
+				<div class="invisible" id="reponse_inconscience">
+					<p style="color:white;text-align:justify;margin:5%;margin-top:0%;">La perte de connaissance :  la mise en PLS
+					<div style="color:white;text-align:justify;list-style:none;margin:5%;margin-top:0%;">
+						Vérifiez que la victime ne réagit pas en posant des questions simples (vous m’entendez, serrez moi la main)<br/><br/>
+						Libérez les voies aériennes, et dégagez son cou de tout accessoire qui gênerait sa respiration<br/><br/>
+						Contrôler la respiration, si la personne respire<br/><br/>
+						Tournez la victime sur le côté en position latérale de sécurité<br/><br/>
+						Demandez à quelqu’un d’appeler les secours ou allez chercher de l’aide si vous êtes seul<br/><br/>
+						Vérifiez régulièrement la respiration de la victime jusqu’à l’arrivée des secours<br/><br/>
+						<p style="text-align:center;">
+							<img style="text-align:center;box-shadow: 6px 6px 6px black;" src="img/pls.jpg" alt="PLS">
+						</p>
+					</div>
+					</p>
+				</div>
+				
+                <a href="#secour" onclick="affiche_reponse_premier_secours('reponse_saignement')" class="ui-btn" id="boutonSaignement" data-transition="pop">Le saignement</a>
+				<div class="invisible" id="reponse_saignement">
+				<p style="color:white;text-align:justify;margin:5%;margin-top:0%;">
+					Le saignement : une personne vient de se couper, elle saigne abondamment…
+					<div style="color:white;text-align:justify;list-style:none;margin:5%;margin-top:0%;">
+						Dans un premier temps, évitez de mettre vos mains, non protégées, au contact de son sang. Demandez-lui d’effectuer un point de compression sur sa plaie.<br/><br/>
+						Demandez à une personne de prévenir les secours, ou faites-le vous-même si vous êtes seul.<br/><br/>
+						Si vos mains sont protégées, exercez directement une pression sur sa plaie.<br/><br/>
+						Allongez la victime en position horizontale. La vue du sang provoque souvent des malaises chez les victimes.<br/><br/>
+						Si la blessure ne cesse de saigner, appuyez plus fermement sur la plaie, et attendez l’arrivée des secours.<br/><br/>
+						<p style="text-align:center;">
+							<img style="text-align:center;box-shadow: 6px 6px 6px black;" src="img/saignement.jpg" alt="saignement">
+						</p>
+					</div>
+					</p>
+				</div>
+				
+                <a href="#boutonDonnerAlerte" onclick="affiche_reponse_premier_secours('reponse_arret_cardiaque');return false;" class="ui-btn" id="boutonCardiaque" data-transition="pop">L'arrêt cardiaque</a> 
+				<div class="invisible" id="reponse_arret_cardiaque">
+					<p style="color:white;text-align:justify;margin:5%;margin-top:0%;">L’arrêt cardiaque : les gestes qui sauvent
+					<div style="color:white;text-align:justify;list-style:none;margin:5%;margin-top:0%;">
+						Si la victime ne réagit pas et ne respire pas normalement, prévenez les secours ou demandez à des personnes de le faire à votre place, chaque minute compte.<br/><br/>
+						Si un DAE est accessible, le mettre en œuvre et suivre ces indications<br/><br/>
+						Si pas de DAE,  commencez par effectuer 30 compressions thoraciques.<br/><br/>
+						Pratiquez ensuite 2 insufflations (si cela vous a été enseigné)<br/><br/>
+						Continuez la réanimation jusqu’à l’arrivée des secours.<br/><br/>
+						<p style="text-align:center;">
+							<img style="text-align:center;box-shadow: 6px 6px 6px black;" src="img/massage-cardiaque.jpg" alt="massage cardiaque">
+						</p>
+					</div>
+					</p>
+				</div>
+            </div><!-- /content -->
+        </div><!-- /page premier secours-->
+
+
+        
+        <!--Sous Menu des gestes de secours - Les Gestes qui sauvent-->
+        <div data-role="page" id="MenuPS2" class="page_man ui-page-header-fixed ui-page-theme-b">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">AppSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+                <div data-role="navbar" class="ui-navbar" role="navigation">
+                    <ul class="ui-grid-a">
+                        <li class="ui-block-a"><a href="#page_secu_routiere" data-transition="fade" class=" ui-link ui-btn">Sécurité routière</a></li>
+                        <li class="ui-block-b"><a href="#" class="ui-btn-active ui-state-persist ui-link ui-btn">Premiers secours</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--Menu Premiers Secours - Niveau 2-->
+            
+            <!-- content -->
+            <div class="content" data-role="content" style="text-align:center;">
+            </div><!-- /content -->
+        </div><!-- /Menu gestes PS-->
+        
+        
+        
+        
+        <!--Sous menu Incidents d'été-->
+        <div data-role="page" id="MenuPSE2" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+                <div data-role="navbar" class="ui-navbar" role="navigation">
+                    <ul class="ui-grid-a">
+                        <li class="ui-block-a"><a href="#page_premier_secours" class=" ui-link ui-btn">Les Gestes qui sauvent</a></li>
+                        <li class="ui-block-b"><a href="#MenuPSE2" class="ui-btn-active ui-state-persist ui-link ui-btn">Incidents d'été</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /header -->
+            <!--Menu Premiers Secours - Niveau 2-->
+            <a href="Piqures.html" class="ui-btn" id="buttonMenu">Piqûres</a>            
+            <a href="Travaux.html" class="ui-btn" id="buttonMenu">Coup de chaleur</a>    
+
+            <!-- content -->
+            <div class="content" data-role="content" style="text-align:center;">
+            </div><!-- /content -->
+        </div><!-- /Sous menu incidents d'été-->
+        
+        
+        <!--Swipe Page Incidents Ete-->
+        <div data-role="page" id="SwipeGestesSecours" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <!-- /header -->
+            
+            <!-- content -->
+            <div class="content" data-role="content" style="text-align:center;">
+            </div><!-- /content -->
+        </div><!-- /Swipe Page Incidents Ete-->
+                
+        
+        <!-- page Numéro Urgence-->
+        <div data-role="page" id="page_numero_urgence" class="page_nue ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <!-- /header -->
+            
+            <!-- content -->
+            <div class="content" data-role="content" style="text-align:center;">
+                <div>
+					<a href="tel:112" data-rel="popup" data-position-to="window" data-transition="pop" ><img class="appel" alt="appel taxis" src="img/appel_urgences.png"></a>
+                    <a href="tel:15" data-rel="popup" data-position-to="window" data-transition="pop" ><img class="appel" alt="appel samu" src="img/appel_samu.png"></a>
+                </div>
+                <div>
+                    <a href="tel:18" data-rel="popup" data-position-to="window" data-transition="pop" ><img class="appel" alt="appel pompier" src="img/appel_pompier.png"></a>
+                    <a href="tel:17" data-rel="popup" data-position-to="window" data-transition="pop" ><img class="appel" alt="appel police" src="img/appel_police.png"></a>
+                </div> 
+            </div><!-- /content -->
+            
+        </div><!-- /page Numéro Urgence-->   
+		
+		<!-- page Carte-->
+            <div data-role="page" id="carte" class="page_man ui-page-header-fixed ui-page-theme-a">
+                <!-- header -->
+                <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                    <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                    <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+                </div>
+                <!-- /header -->
+                
+                <!-- content -->
+				
+                <div class="content" data-role="content" style="text-align:center;width:100%;height:100%;border:none;background:url(img/icons/ajax-loader.gif) no-repeat center;" id="carte_de_localisation">
+				</div>
+				
+				<!-- /content -->
+                
+            </div><!-- /page  Carte-->	
+        
+        <!-- page links-->
+        <div data-role="page" id="page_links" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <!-- /header -->
+            
+            <!-- content -->
+            <div class="content" data-role="content">    
+                <ul data-role="listview" style="font-size:12px;margin:4%;" class="no-radius" data-inset="true">
+                        <li style="color:#FFEC00;" data-role="list-divider" class="list-divider">Informations</li>
+
+                        <li><a href="http://securite-routiere.gouv.fr" class="checkCo" data-transition="flow" data-lien="SR_FR">
+                            <img class="icon-menu-lien-utiles" src="img/icons/SR.gif" alt="SR">
+                            <h2>Sécurité Routière</h2>
+                            <p>Site national de la sécurité routière</p></a>
+                        </li>
+                        <li><a href="http://www.drogues.gouv.fr" class="checkCo" data-transition="flow" >
+                            <img class="icon-menu-lien-utiles" src="img/icons/drogue.gif" alt="drogue">
+                            <h2>Drogue info service</h2>
+                            <p>Site Officiel de drogue info service</p></a>
+                        </li>
+                        <li><a href="http://www.alcool-info-service.fr" class="checkCo" data-transition="flow" >
+                            <img class="icon-menu-lien-utiles" src="img/icons/alcool.gif" alt="alcool">
+                            <h2>Alcool info service</h2>
+                            <p>Site Officiel de alcool info service</p></a>
+                        </li>
+                        <li><a href="http://www.sante.gouv.fr" data-transition="flow" class="checkCo">
+                            <img class="icon-menu-lien-utiles" src="img/icons/sante.gif" alt="sante">
+                            <h2>Santé</h2>
+                            <p>Site gouvernemental de la santé</p></a>
+                        </li>
+
+                        <li data-role="list-divider" class="list-divider">Premiers secours</li>
+
+                        <li><a href="http://www.hopital.fr/Hopitaux/Vos-dossiers-sante/Gestes-de-premier-secours" data-transition="flow" class="checkCo">
+                            <img class="icon-menu-lien-utiles" src="img/icons/hopital.gif" alt="hopital">
+                            <h2>Hopital.fr</h2>
+                            <p>Gestes de premiers secours</p></a>
+                        </li>
+
+                        <li data-role="list-divider" class="list-divider">Conditions de circulation</li>
+
+                        <li>
+							<a href="http://www.msr-cotesdarmor.com/" class="checkCo" data-transition="flow" >
+                            <img class="icon-menu-lien-utiles" src="img/icons/msr.gif" alt="maison de la sécurité routière">
+                            <h2>Maison de La Sécurité Routière</h2>
+                            <p>Site des Côtes d'Armor</p></a>
+                        </li>
+                        <li><a href="http://www.bison-fute.gouv.fr/" class="checkCo" data-transition="flow" >
+                            <img class="icon-menu-lien-utiles" src="img/icons/bison.gif" alt="Bison Futé">
+                            <h2>Bison futé</h2>
+                            <p>Site gouvernemental bison futé</p></a>
+                        </li>
+                    </ul>
+                                    <!--Message avertissement-->
+                <div data-role="popup" id="popupMsgAvert" data-theme="b" data-dismissible="false" style="text-align:center;max-width:400px;margin:0px;">
+                    <div data-role="header" data-theme="a">
+                        <h2 style="margin:0px" id="titre_avert"></h2>
+                    </div>
+                    <div role="main" class="ui-content" style="margin:0px;">
+                        <h4 style="color:#000000;" class="ui-title" id="msg_avert"></h4>
+                        <div style="text-align:center;"><a id="continue_avert" href="#" data-role="button" data-inline="true">Continuer</a></div>
+                    </div>
+                </div>
+                </div><!-- /content -->
+            </div><!-- /page links-->
+        
+        <!-- page about-->
+        <div data-role="page" id="page_about" class="page_man ui-page-header-fixed ui-page-theme-a">
+            <!-- header -->
+            <div data-role="header"  data-position="fixed" role="banner" class="ui-header ui-bar-inherit">
+                <h1 class="ui-title" role="heading" aria-level="1">APPSR</h1>
+                <a href="javascript:history.go(-1)" data-direction="reverse"   data-back="true" class="ui-icon-back ui-btn ui-btn-icon-notext ui-shadow ui-corner-all" data-role="button" role="button">Return</a>
+            </div>
+            <!-- /header -->
+            
+            <!-- content -->
+            <div data-role="content" style="text-align:center;margin:5%;" id="par_a_propos">
+                    <p style="color:#FFFFFF;"><br /><br />Application réalisée et développée en partenariat entre la préfecture des Côtes d’Armor et 
+                        le Département Réseaux & Télécommunications de l'IUT de Lannion. </p><p style="color:#FFFFFF;margin:5%;margin-top:0%;">Pilotage du projet : <br/>Frédéric <b>MAIGNAN</b> </p>
+						<p style="color:#FFFFFF;margin:5%;margin-top:0%;">Développement : <br/>Cécilia <b>LE CALVEZ</b> <br/> Quentin <b>DE QUELEN</b> <br/> Jordan <b>LE DENMAT</b> <br/> Sébastien <b>CORRE</b></p>
+				
+				<!--Affichage du logo de la sécurité routière-->
+				<div style="list-style:none;">
+						<p style="text-align:center;margin-top:10%;"><img src="img/Logo.jpg"></p>
+				</div>
+            </div><!-- /content -->
+        </div><!-- /page about-->
+        
+    </body>
+	
+</html>
