@@ -26,7 +26,7 @@
 <!-- iOS 6.1 ->>
 
 <!-- iPhone / iPod Touch -->
-<icon src="icons/icon.png" gap:platform="ios" width="57" height="57" />
+<icon src="icons/icon-57.png" gap:platform="ios" width="57" height="57" />
 
 <!-- iPad -->
 <icon src="icons/icon-72.png" gap:platform="ios" width="72" height="72" />
